@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм»
 
 * Студент: [Никита Заичко](https://up.htmlacademy.ru/javascript/31/user/2401811).
-* Наставник: `Неизвестно`.
+* Наставник: [Никита Сигов](https://htmlacademy.ru/profile/crazer).
 
 ---
 
