@@ -3,10 +3,10 @@ import { createPhotos } from './data';
 const pictureTemplate = document.querySelector('#picture').content;
 const picture = pictureTemplate.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
-const createElement = createPhotos();
+const createPhotosArray = createPhotos();
 const picturesFragment = document.createDocumentFragment();
 
-createElement.forEach((postedPicture) => {
+createPhotosArray.forEach((postedPicture) => {
   const newPicture = picture.cloneNode(true);
   const newPictureImage = newPicture.querySelector('.picture__img');
   const newPictureComments = newPicture.querySelector('.picture__comments');
