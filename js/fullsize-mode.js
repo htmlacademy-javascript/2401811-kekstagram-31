@@ -6,12 +6,7 @@ const fullPicture = document.querySelector('.big-picture');
 const fullPictureCloseButton = fullPicture.querySelector('.big-picture__cancel');
 const fullPictureImage = fullPicture.querySelector('.big-picture__img img');
 const fullPictureLikes = fullPicture.querySelector('.likes-count');
-const fullPictureShownComments = fullPicture.querySelector('.social__comment-shown-count');
-const fullPictureTotalComments = fullPicture.querySelector('.social__comment-total-count');
-const fullPictureComments = fullPicture.querySelector('.social__comments');
 const fullPictureDescription = fullPicture.querySelector('.social__caption');
-const fullPictureCommentCount = fullPicture.querySelector('.social__comment-count');
-const fullPictureCommentsLoader = fullPicture.querySelector('.comments-loader');
 
 const onDocumentKeydown = (evt) => {
   if (evt.key === 'Escape') {
@@ -36,12 +31,7 @@ const openModal = (pictureId) => {
 
   fullPictureImage.src = photo.url;
   fullPictureLikes.textContent = photo.likes;
-  fullPictureShownComments.textContent = photo.comments.length.toString();
-  fullPictureTotalComments.textContent = photo.comments.length.toString();
-  fullPictureComments.innerHTML = '';
   fullPictureDescription.textContent = photo.description;
-  fullPictureCommentCount.classList.add('hidden');
-  fullPictureCommentsLoader.classList.add('hidden');
 
   renderComments(photo);
 
