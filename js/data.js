@@ -1,4 +1,4 @@
-import { getRandomInteger, createRandomIdGenerator } from './util';
+import { getRandomInteger, createRandomIdGenerator, getRandomArrayElement } from './util';
 
 const NAMES = [
   'Иван',
@@ -31,8 +31,6 @@ const MESSAGES = [
 
 const DESCRIPTIONS = ['#море', '#машины', '#веселье', '#искусство'];
 
-const PHOTOS_NUMBER = 25;
-
 const likes = {
   MIN: 15,
   MAX: 200
@@ -48,27 +46,36 @@ const idPhotos = {
   MAX: 25
 };
 
+const ALL_PHOTOS_COUNT = 25;
+
 const getPhotoId = createRandomIdGenerator(idPhotos.MIN, idPhotos.MAX);
+const generateUrlId = createRandomIdGenerator(idPhotos.MIN, idPhotos.MAX);
+const getCommentId = createRandomIdGenerator();
 
-const getCommentId = createRandomIdGenerator(1, Infinity);
-
-const getRandomArrayElement = (array) => array[getRandomInteger(0, array.length - 1)];
+const generateMessage = () => {
+  const messageStringsAmount = getRandomInteger(1, 2);
+  let message = '';
+  for (let i = 0; i < messageStringsAmount; i++) {
+    message += `${getRandomArrayElement(MESSAGES)} `;
+  }
+  return message.trim();
+};
 
 const createComment = () => ({
   id: getCommentId(),
   avatar: `img/avatar-${getRandomInteger(1, 6)}.svg`,
-  message: getRandomArrayElement(MESSAGES),
+  message: generateMessage(),
   name: getRandomArrayElement(NAMES)
 });
 
-const createPhoto = () => ({
-  id: getPhotoId(idPhotos.MIN, idPhotos.MAX),
-  url: `photos/${getPhotoId(idPhotos.MIN, idPhotos.MAX)}.jpg`,
+const createPostedPhoto = () => ({
+  id: getPhotoId(),
+  url: `photos/${generateUrlId()}.jpg`,
   description: getRandomArrayElement(DESCRIPTIONS),
   likes: getRandomInteger(likes.MIN, likes.MAX),
   comments: Array.from({ length: getRandomInteger(comments.MIN, comments.MAX) }, createComment)
 });
 
-const createPhotos = (number) => Array.from({ length: number }, createPhoto());
+const allCreatedPhotos = Array.from({ length: ALL_PHOTOS_COUNT }, createPostedPhoto);
 
-export { createPhotos, PHOTOS_NUMBER };
+export { allCreatedPhotos };
