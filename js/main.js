@@ -1,1 +1,1 @@
-import './pictures';
+import './gallery';
