@@ -6,20 +6,22 @@ const getRandomInteger = (min, max) => {
   return Math.floor(result);
 };
 
-const createRandomIdGenerator = (min, max) => {
+const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
+
+const createRandomIdGenerator = (min = 1, max = Infinity) => {
   const previousValues = [];
 
   return function () {
-    let currentValue = getRandomInteger(min, max);
+    let currentValue = min;
     if (previousValues.length >= (max - min + 1)) {
       return null;
     }
     while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
+      currentValue += 1;
     }
     previousValues.push(currentValue);
     return currentValue;
   };
 };
 
-export { getRandomInteger, createRandomIdGenerator };
+export { getRandomInteger, getRandomArrayElement, createRandomIdGenerator };
