@@ -17,10 +17,10 @@ const onDocumentKeydown = (evt) => {
   }
 };
 
-const CloseButtonClick = () => {
+const CloseButtonClickHandler = () => {
   fullPicture.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
-  fullPictureCloseButton.removeEventListener('click', CloseButtonClick);
+  fullPictureCloseButton.removeEventListener('click', CloseButtonClickHandler);
 };
 
 const openModal = (pictureId) => {
@@ -36,7 +36,7 @@ const openModal = (pictureId) => {
   renderComments(photo);
 
   document.addEventListener('keydown', onDocumentKeydown);
-  fullPictureCloseButton.addEventListener('click', CloseButtonClick);
+  fullPictureCloseButton.addEventListener('click', CloseButtonClickHandler);
 };
 
 export { openModal };
