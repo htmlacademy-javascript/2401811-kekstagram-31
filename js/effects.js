@@ -35,10 +35,10 @@ const imgUploadPreviewImg = document.querySelector('.img-upload__preview img');
 const sliderElement = document.querySelector('.effect-level__slider');
 const valueElement = document.querySelector('.effect-level__value');
 let currentFilter = 'none';
-const filtersList = document.querySelector('.effects__list');
+const effectsList = document.querySelector('.effects__list');
 
-const changeFilter = (filter, levelOfIntensity) => {
-  switch (filter) {
+const changeFilter = (effect, levelOfIntensity) => {
+  switch (effect) {
     case 'chrome':
       imgUploadPreviewImg.style.filter = `grayscale(${levelOfIntensity})`;
       break;
@@ -75,8 +75,8 @@ sliderElement.noUiSlider.on('update', () => {
   changeFilter(currentFilter, valueElement.value);
 });
 
-filtersList.addEventListener('click', (evt) => {
-  const currentElement = evt.target.closest('effects__item');
+effectsList.addEventListener('click', (evt) => {
+  const currentElement = evt.target.closest('.effects__item');
   if (currentElement) {
     const currentElementInput = currentElement.querySelector('input');
     if (currentElementInput.hasAttribute('checked')) {
