@@ -1,5 +1,5 @@
-import { allCreatedPhotos } from './data';
-import { renderComments } from './show-comments';
+import { allCreatedPhotos } from './data.js';
+import { renderComments } from './show-comments.js';
 
 const body = document.querySelector('body');
 const fullPicture = document.querySelector('.big-picture');

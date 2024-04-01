@@ -1,5 +1,6 @@
-import { showThumbnail, pictures } from './pictures';
-import { openModal } from './fullsize-mode';
+import { showThumbnail, pictures } from './pictures.js';
+import { openModal } from './fullsize-mode.js';
+import './form.js';
 
 showThumbnail();
 
