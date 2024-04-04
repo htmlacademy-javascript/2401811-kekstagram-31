@@ -1,4 +1,5 @@
 const REGEXP = /^#[a-zа-яё0-9]{1,19}$/i;
+const COMMENT_MAX_LENGTH = 140;
 const form = document.querySelector('.img-upload__form');
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
@@ -7,45 +8,52 @@ const pristine = new Pristine(form, {
   errorTextClass: 'img-upload__field-wrapper--error'
 }, true);
 
-const validateCommentSize = () => form.querySelector('.text__description').value.length <= 140;
-
-pristine.addValidator(
-  form.querySelector('.text__description'),
-  validateCommentSize,
-  'Превышено количество допустимых символов'
-);
+const createNewHashtagsArray = (hashtagsArray) => {
+  const newHashtagsArray = [];
+  hashtagsArray.forEach((hashtag) => {
+    if (hashtag !== '') {
+      newHashtagsArray.push(hashtag.toLowerCase());
+    }
+  });
+  return newHashtagsArray;
+};
 
 const validateHashtags = () => {
   const hashtags = form.querySelector('.text__hashtags').value;
-  return (hashtags === '' || hashtags.split(' ').every((hashtag) => REGEXP.test(hashtag)));
+  const hashtagsArray = hashtags.split(' ');
+  return (hashtags === '' || createNewHashtagsArray(hashtagsArray).every((hashtag) => REGEXP.test(hashtag)));
 };
-
 pristine.addValidator(
   form.querySelector('.text__hashtags'),
   validateHashtags,
   'Введён невалидный хэштег'
 );
 
-const validateHashtagsLength = () => form.querySelector('.text__hashtags').value.split(' ').length <= 5;
-
+const validateHashtagsLength = () => {
+  const hashtagsArray = form.querySelector('.text__hashtags').value.split(' ');
+  return createNewHashtagsArray(hashtagsArray).length <= 5;
+};
 pristine.addValidator(
   form.querySelector('.text__hashtags'),
   validateHashtagsLength,
   'Превышено количество хэштегов'
 );
 
-const validateHashtagsUniq = () => {
+const validateHashtagsUniqueness = () => {
   const hashtagsArray = form.querySelector('.text__hashtags').value.split(' ');
-  const newHashtagsArray = hashtagsArray.map((hashtag) => hashtag.toLowerCase());
-  return (new Set(newHashtagsArray)).size === newHashtagsArray.length;
+  return (new Set(createNewHashtagsArray(hashtagsArray))).size === createNewHashtagsArray(hashtagsArray).length;
 };
-
 pristine.addValidator(
   form.querySelector('.text__hashtags'),
-  validateHashtagsUniq,
-  'Хэштеги не должны повторяться'
+  validateHashtagsUniqueness,
+  'Хэштеги повторяются'
 );
 
-const validateForm = () => pristine.validate;
+const validateCommentLength = () => form.querySelector('.text__description').value.length <= COMMENT_MAX_LENGTH;
+pristine.addValidator(
+  form.querySelector('.text__description'),
+  validateCommentLength,
+  'Превышено количество допустимых символов'
+);
 
-export { validateForm };
+export { pristine };
