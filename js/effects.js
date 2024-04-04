@@ -67,7 +67,18 @@ noUiSlider.create(sliderElement, {
   },
   start: FILTERS.none.max,
   step: FILTERS.none.step,
-  connect: 'lower'
+  connect: 'lower',
+  format: {
+    to: function (value) {
+      if (Number.isInteger(value)) {
+        return value.toFixed(0);
+      }
+      return value.toFixed(1);
+    },
+    from: function (value) {
+      return parseFloat(value);
+    },
+  }
 });
 
 sliderElement.noUiSlider.on('update', () => {
@@ -75,7 +86,7 @@ sliderElement.noUiSlider.on('update', () => {
   changeFilter(currentFilter, valueElement.value);
 });
 
-effectsList.addEventListener('click', (evt) => {
+const effectsClickHandler = (evt) => {
   const currentElement = evt.target.closest('.effects__item');
   if (currentElement) {
     const currentElementInput = currentElement.querySelector('input');
@@ -91,8 +102,17 @@ effectsList.addEventListener('click', (evt) => {
         max: FILTERS[currentFilter].max
       },
       start: FILTERS[currentFilter].max,
-      step: FILTERS[currentFilter].step,
-      connect: 'lower'
+      step: FILTERS[currentFilter].step
     });
   }
-});
+};
+
+const addEffectsListener = () => {
+  effectsList.addEventListener('click', effectsClickHandler);
+};
+
+const removeEffectsListener = () => {
+  effectsList.removeEventListener('click', effectsClickHandler);
+};
+
+export { addEffectsListener, removeEffectsListener };

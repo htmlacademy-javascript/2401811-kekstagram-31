@@ -2,7 +2,6 @@ const COMMENTS_COUNT = 5;
 
 let comments = [];
 let commentsCounter = 0;
-
 const fullPicture = document.querySelector('.big-picture');
 const fullPictureComments = fullPicture.querySelector('.social__comments');
 const fullPictureCommentsLoader = fullPicture.querySelector('.comments-loader');
