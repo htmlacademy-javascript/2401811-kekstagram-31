@@ -1,27 +1,27 @@
-import { allCreatedPhotos } from './data.js';
+import { clearPreviousRender } from './filter.js';
 
 const pictureTemplate = document.querySelector('#picture').content;
 const picture = pictureTemplate.querySelector('.picture');
 const pictures = document.querySelector('.pictures');
 
-const showThumbnail = () => {
+const showThumbnail = (images) => {
   const picturesFragment = document.createDocumentFragment();
-  allCreatedPhotos.forEach((postedPicture) => {
+  images.forEach((image) => {
     const newPicture = picture.cloneNode(true);
     const newPictureImage = newPicture.querySelector('.picture__img');
     const newPictureComments = newPicture.querySelector('.picture__comments');
     const newPictureLikes = newPicture.querySelector('.picture__likes');
 
-    newPicture.dataset.id = postedPicture.id;
-    newPictureImage.src = postedPicture.url;
-    newPictureImage.alt = postedPicture.description;
-    newPictureComments.textContent = postedPicture.comments.length;
-    newPictureLikes.textContent = postedPicture.likes;
+    newPicture.dataset.id = image.id;
+    newPictureImage.src = image.url;
+    newPictureImage.alt = image.description;
+    newPictureComments.textContent = image.comments.length;
+    newPictureLikes.textContent = image.likes;
 
     picturesFragment.append(newPicture);
   });
-
+  clearPreviousRender();
   pictures.append(picturesFragment);
 };
 
-export {showThumbnail, pictures};
+export { showThumbnail, pictures };
