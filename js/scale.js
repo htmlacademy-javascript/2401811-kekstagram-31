@@ -7,21 +7,21 @@ const scaleControlValue = imageUploadScale.querySelector('.scale__control--value
 const DIVIDER = 100;
 
 const SCALE = {
-  Min: 25,
-  Max: 100,
-  Step: 25
+  'min': 25,
+  'max': 100,
+  'step': 25
 };
 
 const onScaleControlSmaller = () => {
-  if (parseInt(scaleControlValue.value, 10) > SCALE.Min) {
-    scaleControlValue.value = `${parseInt(scaleControlValue.value, 10) - SCALE.Step}%`;
+  if (parseInt(scaleControlValue.value, 10) > SCALE.min) {
+    scaleControlValue.value = `${parseInt(scaleControlValue.value, 10) - SCALE.step}%`;
     imgUploadPreviewImg.style.transform = `scale(${parseInt(scaleControlValue.value, 10) / DIVIDER})`;
   }
 };
 
 const onScaleControlBigger = () => {
-  if (parseInt(scaleControlValue.value, 10) < SCALE.Max) {
-    scaleControlValue.value = `${parseInt(scaleControlValue.value, 10) + SCALE.Step}%`;
+  if (parseInt(scaleControlValue.value, 10) < SCALE.max) {
+    scaleControlValue.value = `${parseInt(scaleControlValue.value, 10) + SCALE.step}%`;
     imgUploadPreviewImg.style.transform = `scale(${parseInt(scaleControlValue.value, 10) / DIVIDER})`;
   }
 };
