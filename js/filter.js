@@ -17,8 +17,12 @@ const changeOnActiveFilter = (active, others) => {
 
 const clearPreviousRender = () => {
   const pictures = document.querySelector('.pictures');
-  while (pictures.contains(pictures.querySelector('.picture'))) {
-    pictures.querySelector('.picture').remove();
+
+  for (let picture in pictures) {
+    picture = pictures.querySelector('.picture');
+    if (pictures.contains(picture)) {
+      picture.remove();
+    }
   }
 };
 
@@ -29,14 +33,14 @@ const filterDefault = (callback, data) => {
 
 const filterRandom = (callback, data) => {
   changeOnActiveFilter(filterRandomButton, [filterDefaultButton, filterDiscussedButton]);
-  const randomPhotosArray = [];
-  while (randomPhotosArray.length < NUMBER_OF_RANDOM_PHOTOS) {
+  const randomPhotos = [];
+  while (randomPhotos.length < NUMBER_OF_RANDOM_PHOTOS) {
     const randomArrayElement = getRandomArrayElement(data);
-    if (!randomPhotosArray.includes(randomArrayElement)) {
-      randomPhotosArray.push(randomArrayElement);
+    if (!randomPhotos.includes(randomArrayElement)) {
+      randomPhotos.push(randomArrayElement);
     }
   }
-  callback(randomPhotosArray);
+  callback(randomPhotos);
 };
 
 const filterDiscussed = (callback, data) => {
@@ -45,7 +49,7 @@ const filterDiscussed = (callback, data) => {
   callback(sortedArray);
 };
 
-const ShowFilters = (callback, data) => {
+const showFilters = (callback, data) => {
   filterFormElement.addEventListener('click', (evt) => {
     evt.preventDefault();
     if (evt.target === filterDefaultButton) {
@@ -58,4 +62,4 @@ const ShowFilters = (callback, data) => {
   });
 };
 
-export { ShowFilters, clearPreviousRender };
+export { showFilters, clearPreviousRender };

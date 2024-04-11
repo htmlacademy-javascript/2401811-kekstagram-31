@@ -10,12 +10,13 @@ const fullPictureTotalComments = fullPicture.querySelector('.social__comment-tot
 
 const renderComment = (data) => {
   const renderedComment = document.createElement('li');
+  const renderedCommentTemplate = `<img class="social__picture" src="${data.avatar}" alt="${data.name}" width="35" height="35"> <p class="social__text">${data.message}</p>`;
   renderedComment.classList.add('social__comment');
-  renderedComment.innerHTML = `<img class="social__picture" src="${data.avatar}" alt="${data.name}" width="35" height="35"> <p class="social__text">${data.message}</p>`;
+  renderedComment.innerHTML = renderedCommentTemplate;
   return renderedComment;
 };
 
-const showNextComments = () => {
+const nextCommentsHandler = () => {
   const commentsContainer = document.createDocumentFragment();
 
   for (let i = 0; i < Math.min(comments.length, COMMENTS_COUNT); i++) {
@@ -25,7 +26,7 @@ const showNextComments = () => {
   fullPictureComments.append(commentsContainer);
   if (comments.length <= COMMENTS_COUNT) {
     fullPictureCommentsLoader.classList.add('hidden');
-    fullPictureCommentsLoader.removeEventListener('click', showNextComments);
+    fullPictureCommentsLoader.removeEventListener('click', nextCommentsHandler);
   } else {
     comments = comments.slice(COMMENTS_COUNT);
     fullPictureCommentsLoader.classList.remove('hidden');
@@ -38,8 +39,8 @@ const renderComments = (photo) => {
   commentsCounter = 0;
   fullPictureTotalComments.textContent = photo.comments.length.toString();
   comments = photo.comments;
-  showNextComments();
-  fullPictureCommentsLoader.addEventListener('click', showNextComments);
+  nextCommentsHandler();
+  fullPictureCommentsLoader.addEventListener('click', nextCommentsHandler);
 };
 
 export { renderComments };
