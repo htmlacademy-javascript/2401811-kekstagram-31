@@ -8,20 +8,20 @@ const pristine = new Pristine(form, {
   errorTextClass: 'img-upload__field-wrapper--error'
 }, true);
 
-const createNewHashtagsArray = (hashtagsArray) => {
-  const newHashtagsArray = [];
+const createNewHashtags = (hashtagsArray) => {
+  const newHashtags = [];
   hashtagsArray.forEach((hashtag) => {
     if (hashtag !== '') {
-      newHashtagsArray.push(hashtag.toLowerCase());
+      newHashtags.push(hashtag.toLowerCase());
     }
   });
-  return newHashtagsArray;
+  return newHashtags;
 };
 
 const validateHashtags = () => {
   const hashtags = form.querySelector('.text__hashtags').value;
-  const hashtagsArray = hashtags.split(' ');
-  return (hashtags === '' || createNewHashtagsArray(hashtagsArray).every((hashtag) => REGEXP.test(hashtag)));
+  const splitedHashtags = hashtags.split(' ');
+  return (hashtags === '' || createNewHashtags(splitedHashtags).every((hashtag) => REGEXP.test(hashtag)));
 };
 pristine.addValidator(
   form.querySelector('.text__hashtags'),
@@ -30,8 +30,8 @@ pristine.addValidator(
 );
 
 const validateHashtagsLength = () => {
-  const hashtagsArray = form.querySelector('.text__hashtags').value.split(' ');
-  return createNewHashtagsArray(hashtagsArray).length <= 5;
+  const splitedHashtags = form.querySelector('.text__hashtags').value.split(' ');
+  return createNewHashtags(splitedHashtags).length <= 5;
 };
 pristine.addValidator(
   form.querySelector('.text__hashtags'),
@@ -40,8 +40,8 @@ pristine.addValidator(
 );
 
 const validateHashtagsUniqueness = () => {
-  const hashtagsArray = form.querySelector('.text__hashtags').value.split(' ');
-  return (new Set(createNewHashtagsArray(hashtagsArray))).size === createNewHashtagsArray(hashtagsArray).length;
+  const splitedHashtags = form.querySelector('.text__hashtags').value.split(' ');
+  return (new Set(createNewHashtags(splitedHashtags))).size === createNewHashtags(splitedHashtags).length;
 };
 pristine.addValidator(
   form.querySelector('.text__hashtags'),

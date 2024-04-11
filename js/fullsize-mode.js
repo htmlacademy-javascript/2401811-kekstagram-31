@@ -10,14 +10,18 @@ const fullPictureDescription = fullPicture.querySelector('.social__caption');
 const resetOptions = () => {
   fullPicture.classList.add('hidden');
   body.classList.remove('modal-open');
-  document.removeEventListener('keydown', CloseModalHandler);
-  fullPictureCloseButton.removeEventListener('click', CloseModalHandler);
+  document.removeEventListener('keydown', closeModalHandler);
+  fullPictureCloseButton.removeEventListener('click', closeModalClickHandler);
 };
 
-function CloseModalHandler(evt) {
+function closeModalHandler(evt) {
   if (evt.key === 'Escape') {
     evt.preventDefault();
   }
+  resetOptions();
+}
+
+function closeModalClickHandler() {
   resetOptions();
 }
 
@@ -33,8 +37,8 @@ const openModal = (images, imageId) => {
 
   renderComments(currentPhoto);
 
-  document.addEventListener('keydown', CloseModalHandler);
-  fullPictureCloseButton.addEventListener('click', CloseModalHandler);
+  document.addEventListener('keydown', closeModalHandler);
+  fullPictureCloseButton.addEventListener('click', closeModalClickHandler);
 };
 
 export { openModal };

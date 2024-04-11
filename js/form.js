@@ -13,10 +13,10 @@ const imgUploadOverlayElement = document.querySelector('.img-upload__overlay');
 const resetOptions = () => {
   imgUploadOverlayElement.classList.add('hidden');
   body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeydown);
-  document.removeEventListener('click', OutsideClickHandler);
-  imgUploadCancelElement.removeEventListener('click', CloseButtonClickHandler);
-  form.removeEventListener('submit', onSubmitForm);
+  document.removeEventListener('keydown', documentKeydownHandler);
+  document.removeEventListener('click', outsideClickHandler);
+  imgUploadCancelElement.removeEventListener('click', closeButtonClickHandler);
+  form.removeEventListener('submit', submitFormHandler);
   removeScaleListeners();
   removeEffectsListener();
   if (body.contains(document.querySelector('.success'))) {
@@ -29,11 +29,11 @@ const resetOptions = () => {
 const resetErrorOptions = () => {
   document.querySelector('.error').remove();
   document.removeEventListener('keydown', documentKeydownModalHandler);
-  document.removeEventListener('click', OutsideClickHandler);
-  document.addEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('click', outsideClickHandler);
+  document.addEventListener('keydown', documentKeydownHandler);
 };
 
-function onDocumentKeydown(evt) {
+function documentKeydownHandler(evt) {
   const hashtags = form.querySelector('.text__hashtags');
   const description = form.querySelector('.text__description');
   if (evt.key === 'Escape' && document.activeElement !== hashtags && document.activeElement !== description) {
@@ -49,7 +49,7 @@ function documentKeydownModalHandler(evt) {
   }
 }
 
-function OutsideClickHandler(evt) {
+function outsideClickHandler(evt) {
   if (evt.target === document.querySelector('.success')) {
     document.querySelector('.success').remove();
     resetOptions();
@@ -58,7 +58,7 @@ function OutsideClickHandler(evt) {
   }
 }
 
-function CloseButtonClickHandler(evt) {
+function closeButtonClickHandler(evt) {
   if (evt.target === document.querySelector('.success__button')) {
     document.querySelector('.success').remove();
     resetOptions();
@@ -72,19 +72,19 @@ function CloseButtonClickHandler(evt) {
 const onSuccess = () => {
   body.classList.remove('modal-open');
   cloneTemplate('success');
-  document.addEventListener('click', OutsideClickHandler);
-  document.querySelector('.success__button').addEventListener('click', CloseButtonClickHandler);
+  document.addEventListener('click', outsideClickHandler);
+  document.querySelector('.success__button').addEventListener('click', closeButtonClickHandler);
 };
 
 const onError = () => {
-  document.removeEventListener('keydown', onDocumentKeydown);
+  document.removeEventListener('keydown', documentKeydownHandler);
   cloneTemplate('error');
   document.addEventListener('keydown', documentKeydownModalHandler);
-  document.addEventListener('click', OutsideClickHandler);
-  document.querySelector('.error__button').addEventListener('click', CloseButtonClickHandler);
+  document.addEventListener('click', outsideClickHandler);
+  document.querySelector('.error__button').addEventListener('click', closeButtonClickHandler);
 };
 
-function onSubmitForm(evt) {
+function submitFormHandler(evt) {
   evt.preventDefault();
   const isValid = pristine.validate();
   const requestBody = new FormData(evt.target);
@@ -101,9 +101,9 @@ function onSubmitForm(evt) {
 document.querySelector('.img-upload__input').addEventListener('change', (evt) => {
   imgUploadOverlayElement.classList.remove('hidden');
   body.classList.add('modal-open');
-  document.addEventListener('keydown', onDocumentKeydown);
-  imgUploadCancelElement.addEventListener('click', CloseButtonClickHandler);
-  form.addEventListener('submit', onSubmitForm);
+  document.addEventListener('keydown', documentKeydownHandler);
+  imgUploadCancelElement.addEventListener('click', closeButtonClickHandler);
+  form.addEventListener('submit', submitFormHandler);
   addScaleListeners();
   addEffectsListener();
 

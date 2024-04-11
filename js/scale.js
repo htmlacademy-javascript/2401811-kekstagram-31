@@ -12,14 +12,14 @@ const SCALE = {
   'step': 25
 };
 
-const onScaleControlSmaller = () => {
+const scaleControlSmallerHandler = () => {
   if (parseInt(scaleControlValue.value, 10) > SCALE.min) {
     scaleControlValue.value = `${parseInt(scaleControlValue.value, 10) - SCALE.step}%`;
     imgUploadPreviewImg.style.transform = `scale(${parseInt(scaleControlValue.value, 10) / DIVIDER})`;
   }
 };
 
-const onScaleControlBigger = () => {
+const scaleControlBiggerHandler = () => {
   if (parseInt(scaleControlValue.value, 10) < SCALE.max) {
     scaleControlValue.value = `${parseInt(scaleControlValue.value, 10) + SCALE.step}%`;
     imgUploadPreviewImg.style.transform = `scale(${parseInt(scaleControlValue.value, 10) / DIVIDER})`;
@@ -27,13 +27,13 @@ const onScaleControlBigger = () => {
 };
 
 const addScaleListeners = () => {
-  scaleControlSmaller.addEventListener('click', onScaleControlSmaller);
-  scaleControlBigger.addEventListener('click', onScaleControlBigger);
+  scaleControlSmaller.addEventListener('click', scaleControlSmallerHandler);
+  scaleControlBigger.addEventListener('click', scaleControlBiggerHandler);
 };
 
 const removeScaleListeners = () => {
-  scaleControlSmaller.removeEventListener('click', onScaleControlSmaller);
-  scaleControlBigger.removeEventListener('click', onScaleControlBigger);
+  scaleControlSmaller.removeEventListener('click', scaleControlSmallerHandler);
+  scaleControlBigger.removeEventListener('click', scaleControlBiggerHandler);
 };
 
 export { addScaleListeners, removeScaleListeners };
